@@ -1,0 +1,4 @@
+1. Home Screen aufräumen und in einzelne Klassen und funktionen packen.
+2. Detail Notiz stylen und bearbeitungsfähig machen
+3. Profil Seite machen
+4. Evtl. Firebase
