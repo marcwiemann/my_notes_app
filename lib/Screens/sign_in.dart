@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
+                colors: <Color>[
                   Colors.blue,
                   Colors.lightBlue,
                 ])),
@@ -95,7 +95,7 @@ class _SignInState extends State<SignIn> {
                 fontSize: 16,
                 color: Colors.grey,
               ),
-            ), 
+            ),
             registerButton(),
             socialLogin(),
           ],
@@ -179,7 +179,7 @@ class _SignInState extends State<SignIn> {
               borderRadius: new BorderRadius.circular(15.0)),
           color: Colors.lightBlueAccent,
           onPressed: () {
-              Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/home');
           },
           textColor: Colors.white,
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
@@ -220,17 +220,38 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget socialLogin() {
-    return Row(
-      children: <Widget>[
-        IconButton(
-          onPressed: () => {},
-          icon: Icon(Icons.cloud),
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(top: 10.00),
+      child: SizedBox(
+        height: 30,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: 40,
+                height: 40,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset('assets/images/google.png'),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: 40,
+                height: 40,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset('assets/images/facebook.png'),
+                ),
+              ),
+            ),
+          ],
         ),
-        Container(
-          width: 40,
-          child:Icon(Icons.cloud),
-        )
-      ],
+      ),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'style.dart';
 import 'package:my_new_test_app/style.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/notiz_detail.dart';
-import "Screens/sign_in.dart";
+import "Screens/splashscreen.dart";
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,7 +30,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case '/':
-        screen = SignIn();
+        screen = MySplash();
         return MaterialPageRoute(builder: (BuildContext context) => screen);
         break;
       case '/detailNotiz':

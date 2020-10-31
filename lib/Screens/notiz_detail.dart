@@ -12,7 +12,6 @@ class DetailNotiz extends StatefulWidget {
 
 class _DetailNotizState extends State<DetailNotiz> {
   @override
-  
   void initState() {
     super.initState();
   }
@@ -22,7 +21,6 @@ class _DetailNotizState extends State<DetailNotiz> {
 
   final GlobalKey<NotizListeState> key = GlobalKey<NotizListeState>();
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +48,6 @@ class _DetailNotizState extends State<DetailNotiz> {
             setState(() {
               print(_heartPressed);
               _heartPressed = !_heartPressed;
-             
             });
           }),
     );
@@ -89,12 +86,12 @@ class _DetailNotizState extends State<DetailNotiz> {
   Widget _checkedButton() {
     return FloatingActionButton(
       child: Icon(Icons.check),
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.lightBlue,
       onPressed: () {
         key.currentState.editItemOnList(
             widget.notizID, changeDetailText.text, changeDetailBodyText.text);
         setState(() {});
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/home');
       },
     );
   }
