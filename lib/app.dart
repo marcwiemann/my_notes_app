@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_new_test_app/Screens/sign_in.dart';
 import 'style.dart';
 import 'package:my_new_test_app/style.dart';
 import 'Screens/home_screen.dart';
 import 'Screens/notiz_detail.dart';
 import "Screens/splashscreen.dart";
+import "Screens/registration.dart";
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -51,6 +53,14 @@ RouteFactory _routes() {
     switch (settings.name) {
       case '/':
         screen = MySplash();
+        return MaterialPageRoute(builder: (BuildContext context) => screen);
+        break;
+      case '/signup':
+        screen = SignUp();
+        return MaterialPageRoute(builder: (BuildContext context) => screen);
+        break;
+      case '/signin':
+        screen = SignIn();
         return MaterialPageRoute(builder: (BuildContext context) => screen);
         break;
       case '/detailNotiz':

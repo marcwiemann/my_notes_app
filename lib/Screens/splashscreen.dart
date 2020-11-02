@@ -20,7 +20,7 @@ class _MySplashState extends State<MySplash> {
         ),
         textAlign: TextAlign.center,
       ),
-      seconds: 5,
+      seconds: 2,
       navigateAfterSeconds: SignIn(),
       image: Image.asset('assets/images/hiclipart_white.png'),
       photoSize: 100,

@@ -3,33 +3,30 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   FirebaseAuth auth = FirebaseAuth.instance;
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   TextEditingController userController = TextEditingController();
   TextEditingController pwController = TextEditingController();
-  bool _errorWrongPassword = false;
-  bool _errorEmailNotFound = false;
+  bool _errorWeakPassword = false;
+  bool _errorEmailUse = false;
 
-  Future<bool> loginWithEmail(String email, String password) async {
+  Future<bool> registerWithEmail(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        Navigator.pushNamed(context, '/home');
-      }
+          .createUserWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-        _errorWrongPassword = true;
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-        _errorEmailNotFound = true;
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        _errorWeakPassword = true;
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        _errorEmailUse = true;
       }
     } catch (e) {
       print(e);
@@ -108,12 +105,6 @@ class _SignInState extends State<SignIn> {
             loginText(),
             userNameField(),
             passwordField(),
-            Text(
-              'Forget password?',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
             loginButton(),
             Text(
               "OR",
@@ -124,17 +115,17 @@ class _SignInState extends State<SignIn> {
             ),
             registerButton(),
             socialLogin(),
-            if (_errorEmailNotFound == true)
+            if (_errorEmailUse == true)
               Text(
-                "E-Mail existiert nicht",
+                "E-Mail wird schon benutzt",
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.red,
                 ),
               )
-            else if (_errorWrongPassword == true)
+            else if (_errorWeakPassword == true)
               Text(
-                "Dein Password ist falsch",
+                "E-Mail wird schon benutzt",
                 style: TextStyle(
                   fontSize: 11,
                   color: Colors.red,
@@ -149,7 +140,7 @@ class _SignInState extends State<SignIn> {
   Widget loginText() {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
-      child: Text("Sign In",
+      child: Text("Register your Account",
           style: TextStyle(
               decoration: TextDecoration.none,
               color: Color.fromRGBO(0, 179, 255, 1),
@@ -221,9 +212,9 @@ class _SignInState extends State<SignIn> {
               borderRadius: new BorderRadius.circular(15.0)),
           color: Colors.lightBlueAccent,
           onPressed: () async {
-            if (userController.text != null || pwController.text != null) {
-              if (await loginWithEmail(
-                      userController.text, pwController.text) ==
+            if (await userController.text != null ||
+                pwController.text != null) {
+              if (registerWithEmail(userController.text, pwController.text) ==
                   true) {
                 Navigator.pushNamed(context, '/home');
               }
@@ -233,7 +224,7 @@ class _SignInState extends State<SignIn> {
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Container(
             padding: const EdgeInsets.all(10.0),
-            child: const Text('Login',
+            child: const Text('Sign Up',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
           ),
         ),
@@ -252,13 +243,13 @@ class _SignInState extends State<SignIn> {
               borderRadius: new BorderRadius.circular(15.0)),
           color: Colors.white,
           onPressed: () {
-            Navigator.pushNamed(context, '/signup');
+            Navigator.pushNamed(context, '/signin');
           },
           textColor: Colors.white,
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Container(
             padding: const EdgeInsets.all(10.0),
-            child: const Text('Sign Up',
+            child: const Text('Login',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
