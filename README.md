@@ -6,3 +6,8 @@ A project to get started with flutter.
 
 In this project we used Google's API - Firebase where we store the data and where you can authenticate yourself.
 
+## First Release
+Date:07.11.2020
+Name: Alpha 1.0.01
+
+This is the first Test period.
